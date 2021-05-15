@@ -19,5 +19,22 @@ const loginValidation = data => {
   return schema.validate(data);
 };
 
+//Covid Form Validation
+const covidValidation = data => {
+  const schema = Joi.object({
+    country: Joi.string().required(),
+    country_code: Joi.string().required(),
+    continent: Joi.string().required(),
+    population: Joi.number().required(),
+    indicator: Joi.string().required(),
+    weekly_count: Joi.number().required(),
+    rate_14_day: Joi.number().required(),
+    cumulative_count: Joi.number().required(),
+    source: Joi.string().required(),
+  });
+  return schema.validate(data);
+};
+
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
+module.exports.covidValidation = covidValidation;

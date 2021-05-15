@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 //Import Routes
 const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts');
+const covidOperationsRoute = require('./routes/covid-operations');
 //Import Swagger
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
@@ -24,6 +24,20 @@ const swaggerOptions = {
       title: 'Covid API',
       version: '1.0.0',
     },
+    components: {
+      securitySchemes: {
+        jwt: {
+          type: 'apiKey',
+          in: 'header',
+          name: 'auth-token',
+        },
+      },
+    },
+    security: [
+      {
+        jwt: [],
+      },
+    ],
     servers: [
       {
         url: 'http://localhost:3000',
@@ -42,7 +56,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 //Route Middelwares
 app.use('/api/user', authRoute);
-app.use('/api/posts', postRoute);
+app.use('/api/covid', covidOperationsRoute);
 
 //Listen port
 app.listen(3000, () => console.log('Server up and running'));

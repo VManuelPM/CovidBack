@@ -94,7 +94,7 @@ router.post('/register', async (req, res) => {
  * @swagger
  * /api/user/login:
  *   post:
- *     summary: Login with username and password
+ *     summary: Login with email and password
  *     tags: [Users]
  *     requestBody:
  *       required: true
