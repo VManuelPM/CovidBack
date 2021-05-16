@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
+const cors = require('cors');
 const mongoose = require('mongoose');
 //Import Routes
 const authRoute = require('./routes/auth');
@@ -10,6 +11,9 @@ const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 
 dotenv.config();
+
+//Enable Cors
+app.use(cors());
 
 //Connect to DB
 mongoose.connect(process.env.DB_CONNECT, () => {
