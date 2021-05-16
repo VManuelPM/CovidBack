@@ -3,6 +3,7 @@ const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { loginValidation, registerValidation } = require('../validation');
+const { makeMessage } = require('../shared/words');
 
 /**
  * @swagger
@@ -118,13 +119,15 @@ router.post('/login', async (req, res) => {
   }
   //Checking if the email exists
   const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send('Email or password is wrong');
+  errorMessage = makeMessage('Error', 'Email or password is wrong');
+  if (!user) return res.status(400).send(errorMessage);
   //Password is correct
   const validPass = await bcrypt.compare(req.body.password, user.password);
-  if (!validPass) return res.status(400).send('Email or password is wrong');
+  if (!validPass) return res.status(400).send(errorMessage);
   //Create and assign a token
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.status(200).header('auth-token', token).send(token);
+  tokenMessage = makeMessage('success', token);
+  res.status(200).header('auth-token', token).send(tokenMessage);
 });
 
 module.exports = router;

@@ -4,4 +4,14 @@ function capitalizeFirstLetter(str) {
   return capitalized;
 }
 
+//make dto message
+function makeMessage(title, message) {
+  let messageObj = {
+    title: title,
+    message: message,
+  };
+  return messageObj;
+}
+
 exports.capitalizeFirstLetter = capitalizeFirstLetter;
+exports.makeMessage = makeMessage;
