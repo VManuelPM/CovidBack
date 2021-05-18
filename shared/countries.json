@@ -29,5 +29,13 @@
     {
         "code": "JP",
         "country": "Japan"
+    },
+    {
+        "code": "NG",
+        "country": "Nigeria"
+    },
+    {
+        "code": "AU",
+        "country": "Australia"
     }
 ]
