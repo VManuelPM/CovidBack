@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const Covid = require('../model/Covid');
-const { capitalizeFirstLetter } = require('../shared/words');
+const {
+  capitalizeFirstLetter,
+  makeCountryLastDate,
+} = require('../shared/words');
 const { covidValidation } = require('../validation');
 const verify = require('./verifyToken');
+const countriesJson = require('../shared/countries.json');
 
 /**
  * @swagger
@@ -254,6 +258,45 @@ router.get('/data/get/continents', verify, async (req, res) => {
 
 /**
  * @swagger
+ * /api/covid/data/get/countries:
+ *   get:
+ *     summary: Returns the countries with covid data based in the last date
+ *     tags: [Covid]
+ *     responses:
+ *       200:
+ *         description: The list of the countries
+ *         content:
+ *           application/json:
+ *             schema:
+ *                 $ref: '#/components/schemas/Covid'
+ *       401:
+ *         description: Need header token
+ */
+router.get('/data/get/countries', verify, async (req, res) => {
+  try {
+    let countries = countriesJson;
+    let cases = {};
+    let countryObjectData = [];
+
+    for (element of countries) {
+      cases = await findCountryTotal(element.country);
+      countryObjectData.push(
+        makeCountryLastDate(
+          element.code,
+          element.country,
+          cases.cumulative_count
+        )
+      );
+    }
+    res.status(200).json(countryObjectData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Server Error');
+  }
+});
+
+/**
+ * @swagger
  * /api/covid/data/post:
  *   post:
  *     summary: Create a new data in collection
@@ -414,6 +457,19 @@ async function findContinentTotal(continent) {
     .sort({ year_week: -1 })
     .exec();
   let continentTotal = continentData[0];
+  return continentTotal;
+}
+
+/**
+ * Find Total cases of countries
+ * @param {*} country
+ * @returns Total of country
+ */
+async function findCountryTotal(country) {
+  const countryData = await Covid.find({ country: country })
+    .sort({ year_week: -1 })
+    .exec();
+  let continentTotal = countryData[0];
   return continentTotal;
 }
 

@@ -1,0 +1,33 @@
+[{
+        "code": "ES",
+        "country": "Spain"
+    },
+    {
+        "code": "US",
+        "country": "United States Of America"
+    },
+    {
+        "code": "CO",
+        "country": "Colombia"
+    },
+    {
+        "code": "BR",
+        "country": "Brazil"
+    },
+    {
+        "code": "FR",
+        "country": "France"
+    },
+    {
+        "code": "RU",
+        "country": "Russia"
+    },
+    {
+        "code": "CN",
+        "country": "China"
+    },
+    {
+        "code": "JP",
+        "country": "Japan"
+    }
+]
