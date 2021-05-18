@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { loginValidation, registerValidation } = require('../validation');
 const { makeMessage } = require('../shared/words');
+const verify = require('./verifyToken');
 
 /**
  * @swagger
@@ -128,6 +129,16 @@ router.post('/login', async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
   tokenMessage = makeMessage('success', token);
   res.status(200).header('auth-token', token).send(tokenMessage);
+});
+
+router.post('/getUser', verify, async (req, res) => {
+  useremail = await User.findOne({ _id: req.user }).exec();
+  //console.log(user.email);
+  //res.send(req.user);
+  userObj = {
+    email: useremail.email,
+  };
+  res.send(userObj);
 });
 
 module.exports = router;

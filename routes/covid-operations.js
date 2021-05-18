@@ -68,10 +68,6 @@ const verify = require('./verifyToken');
  *  name: Covid
  *  description: Operations related with Covid Data
  */
-router.post('/', verify, (req, res) => {
-  res.send(req.user);
-  User.findbyOne({ _id: req.user });
-});
 
 /**
  * @swagger
