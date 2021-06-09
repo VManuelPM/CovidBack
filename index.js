@@ -1,7 +1,9 @@
+//Import libraries
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
+//CRUD Operations Mongo
 const mongoose = require('mongoose');
 //Import Routes
 const authRoute = require('./routes/auth');
