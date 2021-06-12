@@ -12,6 +12,7 @@ const covidOperationsRoute = require('./routes/covid-operations');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 
+//Call vars of .env
 dotenv.config();
 
 //Enable Cors
@@ -22,7 +23,7 @@ mongoose.connect(process.env.DB_CONNECT, () => {
   console.log('connected to db!');
 });
 
-//Swagger
+//Swagger defintions
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
@@ -57,7 +58,6 @@ const specs = swaggerJsDoc(swaggerOptions);
 
 //Middlewares
 app.use(express.json());
-
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 //Route Middelwares

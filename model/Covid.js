@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Mapping document of Database
 const covidSchema = new mongoose.Schema(
   {
     country: {

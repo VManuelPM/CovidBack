@@ -448,7 +448,7 @@ router.patch('/data/update/:idData', verify, async (req, res) => {
 });
 
 /**
- * Find Total cases of continents
+ * Find Total cases of continents sorted by year_week
  * @param {*} continent
  * @returns Total of continent
  */

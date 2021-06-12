@@ -27,8 +27,8 @@ const verify = require('./verifyToken');
  *           type: string
  *           description: The password of the user
  *       example:
- *         name: victor manuel
- *         email: vpm570@inlumine.ual.es
+ *         name: Generic name
+ *         email: generic@generic.com
  *         password: SomePassword
  */
 
